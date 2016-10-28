@@ -11779,10 +11779,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 1: Load the datasets:
-1.1 player_awards_df - contains the players who have won RY 
-1.2 batting_df - contains the career statisticss of batters in the MLB
-1.3 pitching_df - contains the career statistics of pitchers in the MLB</p>
+<p>Step 1: Load the datasets.</p>
 
 </div>
 </div>
@@ -11793,6 +11790,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#1.1</span>
+<span class="c1">#A dataset which includes players who have won RY and other awards</span>
 <span class="n">player_awards_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/Users/Dave/Desktop/Programming/Personal Projects/Baseball Analysis/baseballdatabank-master/core/AwardsPlayers.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -11807,6 +11805,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#1.2</span>
+<span class="c1">#contains the career statisticss of batters in the MLB</span>
 <span class="n">batting_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/Users/Dave/Desktop/Programming/Personal Projects/Baseball Analysis/baseballdatabank-master/core/batting.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -11821,6 +11820,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#1.3</span>
+<span class="c1">#contains the career statistics of pitchers in the MLB</span>
 <span class="n">pitching_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/Users/Dave/Desktop/Programming/Personal Projects/Baseball Analysis/baseballdatabank-master/core/Pitching.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -11834,8 +11834,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 2: Adjust batting_df and pitching_df to the analysis' timeframe:
-2.1: The Rookie of the Year award was first awarded in 1947, therefore only values from 1947 onwards should be included in the analysis.</p>
+<p>Step 2: Adjust batting_df and pitching_df to the analysis' timeframe.</p>
 
 </div>
 </div>
@@ -11846,6 +11845,8 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#2.1</span>
+<span class="c1">#The Rookie of the Year award was first awarded in 1947, </span>
+<span class="c1">#therefore only values from 1947 onwards should be included in the analysis.</span>
 <span class="n">batting_df</span> <span class="o">=</span> <span class="n">batting_df</span><span class="p">[</span><span class="n">batting_df</span><span class="o">.</span><span class="n">yearID</span> <span class="o">&gt;=</span> <span class="mi">1947</span><span class="p">]</span>
 <span class="n">pitching_df</span> <span class="o">=</span> <span class="n">pitching_df</span><span class="p">[</span><span class="n">pitching_df</span><span class="o">.</span><span class="n">yearID</span> <span class="o">&gt;=</span> <span class="mi">1947</span><span class="p">]</span>
 </pre></div>
@@ -11860,10 +11861,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 3: Find who the RY winners are:
-3.1 ry_winners: Create a dataframe of only the players who have won RY
-3.2 batting_rookies: Create a dataframe of batters who have won RY (this will contain the batting statistics of some pitchers who have won RY)
-3.3 pitching_rookies: Create a dataframe of pitchers who have won RY</p>
+<p>Step 3: Find who the RY winners are.</p>
 
 </div>
 </div>
@@ -11874,6 +11872,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#3.1</span>
+<span class="c1">#ry_winners: Create a dataframe of only the players who have won RY</span>
 <span class="n">ry_winners</span> <span class="o">=</span> <span class="n">player_awards_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">player_awards_df</span><span class="p">[</span><span class="s1">&#39;awardID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Rookie of the Year&#39;</span><span class="p">]</span>
 </pre></div>
 
@@ -11888,6 +11887,8 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#3.2</span>
+<span class="c1">#batting_rookies: Create a dataframe of batters who have won RY, </span>
+<span class="c1">#                (this will contain the batting statistics of some pitchers who have won RY)</span>
 <span class="n">batting_rookies</span> <span class="o">=</span> <span class="n">ry_winners</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">batting_df</span><span class="p">,</span> 
                                      <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span>
                                      <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;playerID&#39;</span><span class="p">,</span>
@@ -11905,6 +11906,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#3.3</span>
+<span class="c1">#pitching_rookies: Create a dataframe of pitchers who have won RY</span>
 <span class="n">pitching_rookies</span> <span class="o">=</span> <span class="n">ry_winners</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pitching_df</span><span class="p">,</span>
                                      <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">,</span>
                                      <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;playerID&#39;</span><span class="p">)</span>
@@ -11920,11 +11922,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 4: Format the datasets to only include the important statistics:
-batting_rookies: Players' IDs, Games Played, At Bats, Hits, Home Runs, Runs, Runs Batted In.
-batting_df: same statistics as batting_rookies.
-pitching_rookies: Players' IDs, Games Played, Wins, Outs Pitched, Batters Faced, Hits, Home Runs, Strike Outs, and Earned Runs.
-pitching_df: same statistics as pitching_rookies.</p>
+<p>Step 4: Format the datasets to only include the important statistics.</p>
 
 </div>
 </div>
@@ -11935,6 +11933,13 @@ pitching_df: same statistics as pitching_rookies.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#4.0</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">batting_rookies: Players&#39; IDs, Games Played, At Bats, Hits, Home Runs, Runs, Runs Batted In.</span>
+<span class="sd">batting_df: same statistics as batting_rookies.</span>
+<span class="sd">pitching_rookies: Players&#39; IDs, Games Played, Wins, Outs Pitched, Batters Faced, Hits, Home Runs, </span>
+<span class="sd">                  Strike Outs, and Earned Runs.</span>
+<span class="sd">pitching_df: same statistics as pitching_rookies.</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="n">batting_rookies</span> <span class="o">=</span> <span class="n">batting_rookies</span><span class="p">[[</span><span class="s1">&#39;playerID&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;AB&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;HR&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;RBI&#39;</span><span class="p">]]</span>
 <span class="n">batting_df</span> <span class="o">=</span> <span class="n">batting_df</span><span class="p">[[</span><span class="s1">&#39;playerID&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;AB&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;HR&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;RBI&#39;</span><span class="p">]]</span>
 <span class="n">pitching_rookies</span> <span class="o">=</span> <span class="n">pitching_rookies</span><span class="p">[[</span><span class="s1">&#39;playerID&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="s1">&#39;IPouts&#39;</span><span class="p">,</span> <span class="s1">&#39;BFP&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;HR&#39;</span><span class="p">,</span> <span class="s1">&#39;SO&#39;</span><span class="p">,</span> <span class="s1">&#39;ER&#39;</span><span class="p">]]</span>
@@ -11951,10 +11956,7 @@ pitching_df: same statistics as pitching_rookies.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 5: Find any missing values in the dataframes:
-5.1 Search through dataframes to find any missing values.
-5.2 Remove the missing values if they should not significantly affect the results of the analysis.
-5.3 Check to make sure that all the missing values are removed.</p>
+<p>Step 5: Find any missing values in the dataframes.</p>
 
 </div>
 </div>
@@ -11965,6 +11967,7 @@ pitching_df: same statistics as pitching_rookies.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#5.1</span>
+<span class="c1">#Search through dataframes to find any missing values.</span>
 <span class="n">dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">batting_rookies</span><span class="p">,</span> <span class="n">batting_df</span><span class="p">,</span> <span class="n">pitching_rookies</span><span class="p">,</span> <span class="n">pitching_df</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dataframes</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -12030,11 +12033,16 @@ dtype: int64
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#5.2.1</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Since there are so many values missing in most of the categories, I am going to remove them from the dataframes</span>
+<span class="sd">as they would overweight the &#39;G&#39; statistic or underweight the &#39;AB&#39;,&#39;H&#39;,&#39;HR&#39;,&#39;R&#39;,&#39;RBI&#39; statistics. The analysis </span>
+<span class="sd">should be more accurate without these values.</span>
+
+<span class="sd">Because all players that have null values in &#39;AB&#39; also have null values in &#39;H&#39;,&#39;HR&#39;,&#39;R&#39;, and &#39;RBI&#39;, I only need</span>
+<span class="sd">to select AB.notnull() to remove all the players with missing values.</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="n">batting_rookies</span> <span class="o">=</span> <span class="n">batting_rookies</span><span class="p">[</span><span class="n">batting_rookies</span><span class="o">.</span><span class="n">AB</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
 <span class="n">batting_df</span> <span class="o">=</span> <span class="n">batting_df</span><span class="p">[</span><span class="n">batting_df</span><span class="o">.</span><span class="n">AB</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
-<span class="c1">#Since there are so many values missing in most of the categories, I am going to remove them from the dataframes</span>
-<span class="c1">#as they would overweight the &#39;G&#39; statistic or underweight the &#39;AB&#39;,&#39;H&#39;,&#39;HR&#39;,&#39;R&#39;,&#39;RBI&#39; statistics. The analysis </span>
-<span class="c1">#should be more accurate without these values.</span>
 </pre></div>
 
 </div>
@@ -12048,12 +12056,11 @@ dtype: int64
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#5.2.2</span>
+<span class="c1">#This player&#39;s statistics minimally affect the analysis, so I will remove it from the pitching dataframe to have a </span>
+<span class="c1">#complete set of data.</span>
 <span class="n">inds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">pitching_df</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="k">print</span> <span class="n">pitching_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
 <span class="n">pitching_df</span> <span class="o">=</span> <span class="n">pitching_df</span><span class="p">[</span><span class="n">pitching_df</span><span class="o">.</span><span class="n">IPouts</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
-
-<span class="c1">#This player&#39;s statistics minimally affect the analysis, so I will remove it from the pitching dataframe to have a </span>
-<span class="c1">#complete set of data.</span>
 </pre></div>
 
 </div>
@@ -12082,6 +12089,7 @@ dtype: int64
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#5.3</span>
+<span class="c1">#Check to make sure that all the missing values are removed.</span>
 <span class="n">dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">batting_rookies</span><span class="p">,</span> <span class="n">batting_df</span><span class="p">,</span> <span class="n">pitching_rookies</span><span class="p">,</span> <span class="n">pitching_df</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dataframes</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -12146,8 +12154,7 @@ dtype: int64
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 6: Sum the career statistics of all players:
-Don't set playerID to index, as it will need to be removed from dataframe later; that is easier to do when playerID is not the index.</p>
+<p>Step 6: Sum the career statistics of all players.</p>
 
 </div>
 </div>
@@ -12158,6 +12165,8 @@ Don't set playerID to index, as it will need to be removed from dataframe later;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#6.0</span>
+<span class="c1">#Don&#39;t set playerID to index, as it will need to be removed from dataframe later; </span>
+<span class="c1">#that is easier to do when playerID is not the index.</span>
 <span class="n">batting_rookies_career_totals</span> <span class="o">=</span> <span class="n">batting_rookies</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;playerID&#39;</span><span class="p">,</span> <span class="n">as_index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">pitching_rookies_career_totals</span> <span class="o">=</span> <span class="n">pitching_rookies</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;playerID&#39;</span><span class="p">,</span> <span class="n">as_index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">batting_df_career_totals</span> <span class="o">=</span> <span class="n">batting_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;playerID&#39;</span><span class="p">,</span> <span class="n">as_index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -12174,10 +12183,7 @@ Don't set playerID to index, as it will need to be removed from dataframe later;
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 7: Include statistics that cannot be summed: 
-7.1 Add Batting Average (AVG) to batters by dividing their Hits (H) by At Bats (AB).
-7.2 Add Oppenent Batting Average (BAopp) to pitchers by dividing their Hits (H) by Batters Faced (BFP).
-7.2 Add Earned Run Average (ERA) to pitchers by dividing their Earned Runs (ER) by Outs Pitched (IPouts), divided by 27.</p>
+<p>Step 7: Include statistics that cannot be summed.</p>
 
 </div>
 </div>
@@ -12188,6 +12194,7 @@ Don't set playerID to index, as it will need to be removed from dataframe later;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#7.1</span>
+<span class="c1">#Add Batting Average (AVG) to batters by dividing their Hits (H) by At Bats (AB).</span>
 <span class="n">batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;AVG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">/</span> 
                                         <span class="n">batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
 
@@ -12206,6 +12213,9 @@ Don't set playerID to index, as it will need to be removed from dataframe later;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#7.2</span>
+<span class="c1">#Add Oppenent Batting Average (BAopp) to pitchers by dividing their Hits (H) by Batters Faced (BFP).</span>
+<span class="c1">#Add Earned Run Average (ERA) to pitchers by dividing their Earned Runs (ER) by Outs Pitched (IPouts), </span>
+<span class="c1">#    divided by 27 (the number of outs in a full baseball game)</span>
 <span class="n">pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;BAopp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">/</span>
                                           <span class="n">pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;BFP&#39;</span><span class="p">])</span>
 
@@ -12257,10 +12267,7 @@ Don't set playerID to index, as it will need to be removed from dataframe later;
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 9: Find the percentile that each RY winner stat falls under:
-9.1 Create the function 'percentile' that finds the percentile we are looking for.
-9.2 Apply the function on batters' statistics via a loop through each batter statisitic.
-9.3 Apply the function on pitchers' statistics via a loop through each pitcher statistic.</p>
+<p>Step 9: Find the percentile that each RY winner statistic falls under.</p>
 
 </div>
 </div>
@@ -12271,6 +12278,7 @@ Don't set playerID to index, as it will need to be removed from dataframe later;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#9.1</span>
+<span class="c1">#Create the function &#39;percentile&#39; that finds which percentile the rookie_mean is at in the league_totals.</span>
 <span class="k">def</span> <span class="nf">percentile</span><span class="p">(</span><span class="n">league_totals</span><span class="p">,</span> <span class="n">rookie_mean</span><span class="p">):</span>
     <span class="n">sorted_league</span> <span class="o">=</span> <span class="n">league_totals</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span> <span class="c1">#sort league stats to get them in ascending order</span>
     <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sorted_league</span><span class="p">:</span> 
@@ -12293,6 +12301,7 @@ Don't set playerID to index, as it will need to be removed from dataframe later;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#9.2</span>
+<span class="c1">#Apply the percentile function on the batters&#39; statistics via a loop through each batter statisitic.</span>
 <span class="n">batting_statistics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;AB&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">,</span><span class="s1">&#39;RBI&#39;</span><span class="p">,</span><span class="s1">&#39;AVG&#39;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">statistic</span> <span class="ow">in</span> <span class="n">batting_statistics</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">statistic</span> <span class="o">+</span> <span class="s1">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">percentile</span><span class="p">(</span><span class="n">batting_df_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">],</span> <span class="n">batting_rookies_overall_means</span><span class="p">[</span><span class="n">statistic</span><span class="p">]))</span>
@@ -12342,10 +12351,11 @@ Plot the means of the statisitcs, to give a visual representation of the data an
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#9.2.1</span>
-<span class="c1"># At Bats were intentionally left out, as its values would be far greater than those of the other statisitics and would</span>
-<span class="c1"># make the plot more difficult to view. Batting Average was also left out as its value would not be shown clearly, and</span>
-<span class="c1"># I am presenting it in a later plot.</span>
-
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">At Bats were intentionally left out, as its values would be far greater than those of the other statisitics and would</span>
+<span class="sd">make the plot more difficult to view. Batting Average was also left out as its value would not be shown clearly, and</span>
+<span class="sd">I will plot it below.</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="n">batting_statistics_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">:</span> <span class="n">batting_rookies_overall_means</span><span class="p">[[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;RBI&#39;</span><span class="p">]],</span>
                                      <span class="s1">&#39;All Batters&#39;</span><span class="p">:</span> <span class="n">batting_df_overall_means</span><span class="p">[[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;RBI&#39;</span><span class="p">]]},</span>
                                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">,</span><span class="s1">&#39;All Batters&#39;</span><span class="p">])</span>
@@ -12526,6 +12536,7 @@ PXZCDQCAwfhRDgAADEaoAQAwGKEGAMBghBoAAIMRagAADPb/AZ6b1vj9To/cAAAAAElFTkSuQmCC
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#9.3</span>
+<span class="c1">#Apply the percentile function on the pitchers&#39; statistics via a loop through each pitcher statistic.</span>
 <span class="n">pitching_statistics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="s1">&#39;IPouts&#39;</span><span class="p">,</span><span class="s1">&#39;BFP&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;SO&#39;</span><span class="p">,</span><span class="s1">&#39;ER&#39;</span><span class="p">,</span><span class="s1">&#39;BAopp&#39;</span><span class="p">,</span><span class="s1">&#39;ERA&#39;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">statistic</span> <span class="ow">in</span> <span class="n">pitching_statistics</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">statistic</span> <span class="o">+</span> <span class="s1">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">percentile</span><span class="p">(</span><span class="n">pitching_df_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">],</span> <span class="n">pitching_rookies_overall_means</span><span class="p">[</span><span class="n">statistic</span><span class="p">]))</span>
@@ -12578,8 +12589,7 @@ Plot the means of the statisitcs, to give a visual representation of the data an
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#9.3.1.1</span>
-<span class="c1"># Statistics are grouped by relatively similar values.</span>
-
+<span class="c1"># Statistics are grouped by relatively similar values - first set.</span>
 <span class="n">pitching_stats_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">:</span> <span class="n">pitching_rookies_overall_means</span><span class="p">[[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;ER&#39;</span><span class="p">]],</span>
                     <span class="s1">&#39;All Pitchers&#39;</span><span class="p">:</span> <span class="n">pitching_df_overall_means</span><span class="p">[[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;ER&#39;</span><span class="p">]]},</span>
                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">,</span><span class="s1">&#39;All Pitchers&#39;</span><span class="p">])</span>
@@ -12748,6 +12758,7 @@ BuBDXQAAGIAgAwBgAIIMAIABCDIAAAYgyAAAGOD/AY+9TbJeyxv3AAAAAElFTkSuQmCC
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#9.3.1.2</span>
+<span class="c1"># Statistics are grouped by relatively similar values - second set.</span>
 <span class="n">pitching_stats_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">:</span> <span class="n">pitching_rookies_overall_means</span><span class="p">[[</span><span class="s1">&#39;IPouts&#39;</span><span class="p">,</span><span class="s1">&#39;BFP&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;SO&#39;</span><span class="p">]],</span>
                     <span class="s1">&#39;All Pitchers&#39;</span><span class="p">:</span> <span class="n">pitching_df_overall_means</span><span class="p">[[</span><span class="s1">&#39;IPouts&#39;</span><span class="p">,</span><span class="s1">&#39;BFP&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;SO&#39;</span><span class="p">]]},</span>
                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">,</span><span class="s1">&#39;All Pitchers&#39;</span><span class="p">])</span>
@@ -12936,9 +12947,7 @@ RK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 10: Inquiry about unexpected results:
-10.1: Print the batting_rookies_careet_totals to see if there are any unexpected players included.
-10.2: Print the pitching_rookies_careet_totals to see if there are any unexpected players included.</p>
+<p>Step 10: Inquiry about unexpected results.</p>
 
 </div>
 </div>
@@ -12949,7 +12958,9 @@ RK5CYII=
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#10.1</span>
-<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">999</span><span class="p">):</span>
+<span class="c1">#Print the batting_rookies_career_totals to see if there are any unexpected players included.</span>
+<span class="c1">#Set max_rows and max_columns to 999 to ensure all the data is visible.</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">999</span><span class="p">):</span> 
     <span class="k">print</span> <span class="n">batting_rookies_career_totals</span>
 </pre></div>
 
@@ -13116,7 +13127,7 @@ RK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Followup to Step 10.1:
-It appear that there are some AVG equal NaN. I will change these values to 0.</p>
+It appears that there are some AVG equal NaN. I will change these values to 0, because they have 0 hits.</p>
 <p>Step 10.1.1: Change NaN values to 0.</p>
 
 </div>
@@ -13142,6 +13153,8 @@ It appear that there are some AVG equal NaN. I will change these values to 0.</p
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#10.2</span>
+<span class="c1">#Print the pitching_rookies_careet_totals to see if there are any unexpected players included.</span>
+<span class="c1">#Set max_rows and max_columns to 999 to ensure all the data is visible.</span>
 <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">999</span><span class="p">):</span>
     <span class="k">print</span> <span class="n">pitching_rookies_career_totals</span>
 </pre></div>
@@ -13254,9 +13267,6 @@ It appear that there are some AVG equal NaN. I will change these values to 0.</p
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Followup to Step 10.2:
 It appears that there are three fielders included in the dataframe. I will remove them from the dataframe to calculate more accurate values of how well RY winning pitchers pitch. Fielders rarely pitch so it does not make a great deal of sense to include them in the dataframe.</p>
-<p>10.2.1: Create a new dataframe without the fielders.
-10.2.2: Calculate the new pitching_rookies_overall_means.
-10.2.3: Caluclate the new percentiles.</p>
 
 </div>
 </div>
@@ -13267,6 +13277,7 @@ It appears that there are three fielders included in the dataframe. I will remov
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#10.2.1</span>
+<span class="c1">#Create a new dataframe without the fielders.</span>
 <span class="n">only_pitching_rookies_career_totals</span> <span class="o">=</span> <span class="n">pitching_rookies_career_totals</span><span class="p">[</span><span class="n">pitching_rookies_career_totals</span><span class="o">.</span><span class="n">G</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 
@@ -13281,6 +13292,7 @@ It appears that there are three fielders included in the dataframe. I will remov
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#10.2.2</span>
+<span class="c1">#Calculate the new pitching_rookies_overall_means.</span>
 <span class="n">only_pitching_rookies_overall_means</span> <span class="o">=</span> <span class="n">only_pitching_rookies_career_totals</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 
@@ -13295,6 +13307,7 @@ It appears that there are three fielders included in the dataframe. I will remov
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#10.2.3</span>
+<span class="c1">#Calculate the new percentiles.</span>
 <span class="n">pitching_statistics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="s1">&#39;IPouts&#39;</span><span class="p">,</span><span class="s1">&#39;BFP&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;SO&#39;</span><span class="p">,</span><span class="s1">&#39;ER&#39;</span><span class="p">,</span><span class="s1">&#39;BAopp&#39;</span><span class="p">,</span><span class="s1">&#39;ERA&#39;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">statistic</span> <span class="ow">in</span> <span class="n">pitching_statistics</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">statistic</span> <span class="o">+</span> <span class="s1">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">percentile</span><span class="p">(</span><span class="n">pitching_df_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">],</span> <span class="n">only_pitching_rookies_overall_means</span><span class="p">[</span><span class="n">statistic</span><span class="p">]))</span>
@@ -13334,7 +13347,6 @@ ERA = 0.165701634877
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Followup to 10.2.3: These values, especially ERA, are much closer to those that I expected. I believe removing the three fielders from the dataframe have provided percentiles that are much more reflective of the skills of RY winning pitchers.</p>
-<p>10.2.4: Subtract new values from the old ones to show the difference.</p>
 
 </div>
 </div>
@@ -13345,10 +13357,13 @@ ERA = 0.165701634877
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#10.2.4</span>
+<span class="c1">#Subtract new values from the old ones to show the difference.</span>
 <span class="n">pitching_statistics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="s1">&#39;IPouts&#39;</span><span class="p">,</span><span class="s1">&#39;BFP&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;SO&#39;</span><span class="p">,</span><span class="s1">&#39;ER&#39;</span><span class="p">,</span><span class="s1">&#39;BAopp&#39;</span><span class="p">,</span><span class="s1">&#39;ERA&#39;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">statistic</span> <span class="ow">in</span> <span class="n">pitching_statistics</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">statistic</span> <span class="o">+</span> <span class="s1">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">percentile</span><span class="p">(</span><span class="n">pitching_df_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">],</span> <span class="n">only_pitching_rookies_overall_means</span><span class="p">[</span><span class="n">statistic</span><span class="p">])</span> <span class="o">-</span>
-                                  <span class="n">percentile</span><span class="p">(</span><span class="n">pitching_df_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">],</span> <span class="n">pitching_rookies_overall_means</span><span class="p">[</span><span class="n">statistic</span><span class="p">]))</span>
+    <span class="k">print</span> <span class="n">statistic</span> <span class="o">+</span> <span class="s1">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">percentile</span><span class="p">(</span><span class="n">pitching_df_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">],</span> 
+                                             <span class="n">only_pitching_rookies_overall_means</span><span class="p">[</span><span class="n">statistic</span><span class="p">])</span> <span class="o">-</span>
+                                  <span class="n">percentile</span><span class="p">(</span><span class="n">pitching_df_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">],</span> 
+                                             <span class="n">pitching_rookies_overall_means</span><span class="p">[</span><span class="n">statistic</span><span class="p">]))</span>
 </pre></div>
 
 </div>
@@ -13396,9 +13411,6 @@ ERA = -0.376021798365
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Step 11: Adjust measurements:
 The RY winners' Batting Average seems surprisingly low compared to the the other percentiles. I believe this is due to finding the mean of the players' batting averages, instead of finding the batting average of all of the At Bats (AB) of RY winners. Finding this new percentile will dilute the weight of pitchers who have batted, because they play less often, therefore bat less, and typically have a lower batting average. In short, this new measurement should provide a more accurate representation of how well RY winners bat.</p>
-<p>11.1 Find the new value for AVG, by using the sum of all players' relevant statistics.
-11.2 Find the new percentile for AVG.
-11.3 Compare RY winners' AVG, BAopp, and ERA to all other players via plots. I am using box plots to show the spread of these values, as I believe they are the most important in determining the quality of the players, thus a more accurate depiction of their values should be worthwhile.</p>
 
 </div>
 </div>
@@ -13409,6 +13421,8 @@ The RY winners' Batting Average seems surprisingly low compared to the the other
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.1</span>
+<span class="c1">#Find the new value for AVG, by using the sum of all players&#39; Hits (H) and At Bats (AB) statistics.</span>
+<span class="c1">#Then divide the value of Hits by At Bats.</span>
 <span class="n">batting_rookies_new_AVG</span> <span class="o">=</span> <span class="n">batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 
@@ -13423,6 +13437,7 @@ The RY winners' Batting Average seems surprisingly low compared to the the other
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.2</span>
+<span class="c1">#Find the new percentile for AVG.</span>
 <span class="k">print</span> <span class="s1">&#39;AVG = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">percentile</span><span class="p">(</span><span class="n">batting_df_career_totals</span><span class="p">[</span><span class="s1">&#39;AVG&#39;</span><span class="p">],</span> <span class="n">batting_rookies_new_AVG</span><span class="p">))</span>
 </pre></div>
 
@@ -13451,7 +13466,6 @@ The RY winners' Batting Average seems surprisingly low compared to the the other
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Followup to 11.2: This value is much closer to the other percentiles of the other batting statistics, and one that I believe is more accurate of the skill of RY winning batters.</p>
-<p>11.2.1: Subtract previous value from new value to show the difference, followed by their relative differences.</p>
 
 </div>
 </div>
@@ -13462,6 +13476,7 @@ The RY winners' Batting Average seems surprisingly low compared to the the other
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.2.1 </span>
+<span class="c1">#Subtract previous value from new value to show the difference, followed by their relative differences.</span>
 <span class="k">print</span> <span class="s2">&quot;AVG: Difference = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">batting_rookies_new_AVG</span> <span class="o">-</span> <span class="n">batting_rookies_overall_means</span><span class="p">[</span><span class="s1">&#39;AVG&#39;</span><span class="p">])</span>
 <span class="k">print</span> <span class="s2">&quot;AVG: % Difference = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">((</span><span class="n">batting_rookies_new_AVG</span> <span class="o">-</span> <span class="n">batting_rookies_overall_means</span><span class="p">[</span><span class="s1">&#39;AVG&#39;</span><span class="p">])</span><span class="o">/</span> 
                               <span class="n">batting_rookies_overall_means</span><span class="p">[</span><span class="s1">&#39;AVG&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
@@ -13487,12 +13502,27 @@ AVG: % Difference = 15.1165840091
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Step 11.3
+Compare RY winners' AVG, BAopp, and ERA to all other players via plots. 
+I am using box plots to show the spread of these values, 
+as I believe they are the most important in determining the quality of the players, 
+thus a more accurate depiction of their values should be worthwhile.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.3.1</span>
+<span class="c1">#Compare RY winners&#39; AVG to all other batters.</span>
 <span class="n">batting_statisitc_AVG</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">:</span> <span class="n">batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;AVG&#39;</span><span class="p">],</span>
                                       <span class="s1">&#39;All Batters&#39;</span><span class="p">:</span> <span class="n">batting_df_career_totals</span><span class="p">[</span><span class="s1">&#39;AVG&#39;</span><span class="p">]},</span>
                                       <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">,</span> <span class="s1">&#39;All Batters&#39;</span><span class="p">])</span>
@@ -13636,6 +13666,7 @@ hjgDAGAY4gwAgGH+DzBY4ObSe92UAAAAAElFTkSuQmCC
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#10.3.2</span>
+<span class="c1">#Compare RY winners&#39; BAopp to all other pitchers.</span>
 <span class="n">pitching_stats_BAopp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">:</span> <span class="n">only_pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;BAopp&#39;</span><span class="p">],</span>
                                      <span class="s1">&#39;All Pitchers&#39;</span><span class="p">:</span> <span class="n">pitching_df_career_totals</span><span class="p">[</span><span class="s1">&#39;BAopp&#39;</span><span class="p">]},</span>
                                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">,</span><span class="s1">&#39;All Pitchers&#39;</span><span class="p">])</span>
@@ -13812,6 +13843,7 @@ AMAw/x+vkq8gfwbsjgAAAABJRU5ErkJggg==
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#10.3.3</span>
+<span class="c1">#Compare RY winners&#39; ERA to all other pitchers.</span>
 <span class="n">pitching_stats_ERA</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">:</span> <span class="n">only_pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;ERA&#39;</span><span class="p">],</span>
                                    <span class="s1">&#39;All Pitchers&#39;</span><span class="p">:</span> <span class="n">pitching_df_career_totals</span><span class="p">[</span><span class="s1">&#39;ERA&#39;</span><span class="p">]},</span>
                                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RY Winners&#39;</span><span class="p">,</span><span class="s1">&#39;All Pitchers&#39;</span><span class="p">])</span>
@@ -13952,15 +13984,7 @@ I believe that it is clear to say that RY winners have above average careers in 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Step 11: Calculate if RY winners are improving with time:
-11.1 Create new dataframes for the yearly calculations.
-11.2 Include only the important statistics in the dataframes.
-11.3 Group statistics by year to calculate the yearly changes.
-11.4 Create empty dataframes to be filled with standardized values.
-11.5 Add the standardized values to the empty dataframes. Batters are standardized by At Bats, because this will show how successful a batter is at each At Bat and if there are different amount of At Bats each season, the yearly differences will be factored out. Pitchers are standardized by Batters Faced, because this will show how successful a pitcher typically is against a batter, and if pitchers face a different amount of batters each year, this will be factored out.
-11.6 Add the years (yearID) to the dataframe.
-11.7 Calculate the correlation for batters.
-11.8 Calculate the correlation for pitchers.</p>
+<p>Step 11: Calculate if RY winners are improving with time.</p>
 
 </div>
 </div>
@@ -13971,6 +13995,7 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.1</span>
+<span class="c1">#Create new dataframes for the yearly calculations.</span>
 <span class="n">yearly_batting_rookies</span> <span class="o">=</span> <span class="n">ry_winners</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">batting_df</span><span class="p">,</span>
                                          <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span>
                                          <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;playerID&#39;</span><span class="p">)</span>
@@ -13991,6 +14016,7 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.2</span>
+<span class="c1">#Include only the relevant statistics in the dataframes.</span>
 <span class="n">yearly_batting_rookies</span> <span class="o">=</span> <span class="n">yearly_batting_rookies</span><span class="p">[[</span><span class="s1">&#39;yearID&#39;</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;AB&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">,</span><span class="s1">&#39;RBI&#39;</span><span class="p">]]</span>
 <span class="n">yearly_pitching_rookies</span> <span class="o">=</span> <span class="n">yearly_pitching_rookies</span><span class="p">[[</span><span class="s1">&#39;yearID&#39;</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="s1">&#39;IPouts&#39;</span><span class="p">,</span><span class="s1">&#39;BFP&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;SO&#39;</span><span class="p">,</span><span class="s1">&#39;ER&#39;</span><span class="p">]]</span>
 </pre></div>
@@ -14006,6 +14032,7 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.3</span>
+<span class="c1">#Group statistics by year to calculate the yearly changes.</span>
 <span class="n">yearly_batting_rookies_career_totals</span> <span class="o">=</span> <span class="n">yearly_batting_rookies</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;yearID&#39;</span><span class="p">,</span> <span class="n">as_index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">yearly_pitching_rookies_career_totals</span> <span class="o">=</span> <span class="n">yearly_pitching_rookies</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;yearID&#39;</span><span class="p">,</span> <span class="n">as_index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
@@ -14021,6 +14048,7 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.4 </span>
+<span class="c1">#Create empty dataframes to be filled with standardized values.</span>
 <span class="n">yearly_batting_rookies_career_totals_standardized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="n">yearly_pitching_rookies_career_totals_standardized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 </pre></div>
@@ -14035,7 +14063,12 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.5.1</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.5.1.1</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Add the standardized values to the empty dataframes. </span>
+<span class="sd">Batters are standardized by At Bats, because this will show how successful a batter is at each At Bat and </span>
+<span class="sd">if there are different amount of At Bats each season, the yearly differences will be factored out.</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="n">yearly_batting_statistics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;AB&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">,</span><span class="s1">&#39;RBI&#39;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">statistic</span> <span class="ow">in</span> <span class="n">yearly_batting_statistics</span><span class="p">:</span>
     <span class="n">yearly_batting_rookies_career_totals_standardized</span><span class="p">[</span><span class="n">statistic</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">yearly_batting_rookies_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">]</span> <span class="o">/</span>
@@ -14052,7 +14085,8 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.5.2</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.5.1.2</span>
+<span class="c1">#Calculate and add AVG to the batting standardized values dataframe.</span>
 <span class="n">yearly_batting_rookies_career_totals_standardized</span><span class="p">[</span><span class="s1">&#39;AVG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">yearly_batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">/</span>
                                                <span class="n">yearly_batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;AB&#39;</span><span class="p">])</span>
 </pre></div>
@@ -14067,7 +14101,13 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.5.3</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.5.2.1</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Add the standardized values to the empty dataframes.</span>
+<span class="sd">Pitchers are standardized by Batters Faced, </span>
+<span class="sd">because this will show how successful a pitcher typically is against a batter, </span>
+<span class="sd">and if pitchers face a different amount of batters each year, this will be factored out.</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="n">yearly_pitching_statistics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="s1">&#39;IPouts&#39;</span><span class="p">,</span><span class="s1">&#39;BFP&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span><span class="s1">&#39;SO&#39;</span><span class="p">,</span><span class="s1">&#39;ER&#39;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">statistic</span> <span class="ow">in</span> <span class="n">yearly_pitching_statistics</span><span class="p">:</span>
     <span class="n">yearly_pitching_rookies_career_totals_standardized</span><span class="p">[</span><span class="n">statistic</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">yearly_pitching_rookies_career_totals</span><span class="p">[</span><span class="n">statistic</span><span class="p">]</span> <span class="o">/</span> 
@@ -14084,7 +14124,8 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.5.4</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.5.2.2</span>
+<span class="c1">#Calculate and add BAopp and ERA to the pitching standardized values dataframe.</span>
 <span class="n">yearly_pitching_rookies_career_totals_standardized</span><span class="p">[</span><span class="s1">&#39;BAopp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">yearly_pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">]</span> <span class="o">/</span>
                                                   <span class="n">yearly_pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;BFP&#39;</span><span class="p">])</span>
 <span class="n">yearly_pitching_rookies_career_totals_standardized</span><span class="p">[</span><span class="s1">&#39;ERA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">yearly_pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;ER&#39;</span><span class="p">]</span> <span class="o">/</span>
@@ -14102,6 +14143,7 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.6</span>
+<span class="c1">#Add the years (yearID) to the dataframes.</span>
 <span class="n">yearly_batting_rookies_career_totals_standardized</span><span class="p">[</span><span class="s1">&#39;yearID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yearly_batting_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;yearID&#39;</span><span class="p">]</span>
 <span class="n">yearly_pitching_rookies_career_totals_standardized</span><span class="p">[</span><span class="s1">&#39;yearID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yearly_pitching_rookies_career_totals</span><span class="p">[</span><span class="s1">&#39;yearID&#39;</span><span class="p">]</span>
 </pre></div>
@@ -14117,6 +14159,7 @@ I believe that it is clear to say that RY winners have above average careers in 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.7</span>
+<span class="c1">#Calculate the correlation for batters.</span>
 <span class="n">yearly_batting_rookies_career_totals_standardized</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 
@@ -14263,6 +14306,7 @@ By looking at the yearID column/row, we can see that RY winning batters, on aver
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#11.8</span>
+<span class="c1">#Calculate the correlation for pitchers.</span>
 <span class="n">yearly_pitching_rookies_career_totals_standardized</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 
