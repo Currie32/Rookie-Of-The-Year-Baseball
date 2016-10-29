@@ -1,5 +1,5 @@
 # Rookie-Of-The-Year-Baseball
-A statistical analysis of 'Rookie of the Year' winners in baseball.
+Used python to perform a statistical analysis of 'Rookie of the Year' winners in baseball.
 
 The goals for this analysis were: 
 (1) To see if winners of 'Rookie of the Year' (RY) have above average careers and 
